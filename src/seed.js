@@ -1,10 +1,8 @@
 //gerar arquivo de seed para popular o banco de dados com dados iniciais 
 import { createWriteStream, statSync } from 'node:fs';
 import { faker } from '@faker-js/faker';
-import { time, timeStamp } from 'node:console';
+import { LOG_FILE, LOG_INTERVAL } from './consts.js'
 
-const LOG_FILE = 'access.log';
-const LOG_INTERVAL = 1000; 
 const maxRecords = Number(process.argv[2] || Infinity); 
 
 if (
@@ -22,7 +20,6 @@ const stream = createWriteStream(LOG_FILE);
 function generateUser() {
     return {
         ip: faker.internet.ip(),
-        id: faker.string.uuid(),
         name: faker.name.fullName(),
         email: faker.internet.email(),
         location: faker.address.city(),
@@ -36,6 +33,7 @@ function generateUser() {
 function generateLogEntry(user) {
     return {
         ...user,
+        id: faker.string.uuid(),
         timestamp: faker.date.recent().toISOString(),
     }
 }
@@ -62,6 +60,7 @@ process.on('SIGINT', () => {
 })
 
 let count = 0;
+console.log('Quantidade máxima:', maxRecords);
 while (count < maxRecords) {
     const user = faker.helpers.arrayElement(users); 
     const record = generateLogEntry(user); 

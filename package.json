@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "seed": "node src/seed.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "injest": "node src/injest.js"
   },
   "license": "ISC",
   "dependencies": {

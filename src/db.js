@@ -4,9 +4,8 @@ export function createDb(path = ":memory:") {
     const db = new DatabaseSync(path);
     db.exec(`
         CREATE TABLE IF NOT EXISTS access_logs (
-            id TESXT PRIMARY KEY,
+            id TEXT PRIMARY KEY,
             ip TEXT NOT NULL,
-            user_id TEXT NOT NULL,
             name TEXT NOT NULL,
             email TEXT NOT NULL,
             location TEXT NOT NULL,
